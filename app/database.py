@@ -1,0 +1,39 @@
+# database.py files is for established a connection with database(may be Mysql, postgresql, oracle etc)
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+# from . config import setting
+# SessionLocal object are responsible to talking with databases
+# Dependency
+# this function actually established a connection with databases
+# or get a session to the database
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+# create database URL for sqlalchemy
+
+sqlalchemy_database_url = "mysql+mysqldb://isrardawar:dawar96418@localhost:3306/fastapi"
+
+# sqlalchemy_database_url = f"mysql+mysqldb://{setting.database_username}:{setting.database_password}@{setting.database_hostname}:{setting.database_portNumber}/{setting.database_name}"
+
+
+# create engine are responsible to connect fastapi with your database through url
+
+engine = create_engine(sqlalchemy_database_url)
+
+# sessionmaker are responsible to make conversation/communication with the database
+# the sessionmaker can provide a factory for Session objects
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# this ftn are responsible to convert all the model into table in databass
+# when we run the server again and again  it all time model will be converted into tables
+# this function also prevent to create the table again and again
+Base = declarative_base()
