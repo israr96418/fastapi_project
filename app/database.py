@@ -20,8 +20,6 @@ def get_db():
 
 # create database URL for sqlalchemy
 
-sqlalchemy_database_url = "mysql+mysqldb://isrardawar:dawar96418@localhost:3306/fastapi"
-
 # sqlalchemy_database_url = f"mysql+mysqldb://{setting.database_username}:{setting.database_password}@{setting.database_hostname}:{setting.database_portNumber}/{setting.database_name}"
 
 
